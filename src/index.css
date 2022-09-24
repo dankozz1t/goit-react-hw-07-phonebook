@@ -1,4 +1,4 @@
-@import-normalize; /* bring in normalize.css styles */
+@import-normalize;
 
 body {
   margin: 0;
@@ -7,7 +7,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: teal;
+
+  background: linear-gradient(45deg, #fc466b, #3f5efb);
 }
 
 code {
@@ -33,4 +34,16 @@ img {
 
 button {
   cursor: pointer;
+}
+
+.text {
+  text-align: center;
+  margin-bottom: 20px;
+
+  font-size: 17px;
+  font-weight: 500;
+
+  color: #fff;
+  opacity: 0.7;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }

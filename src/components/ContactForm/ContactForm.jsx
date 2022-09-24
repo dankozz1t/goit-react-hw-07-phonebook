@@ -9,7 +9,12 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import { login } from '../Confetti/utils';
 
-import s from './ContactForm.module.css';
+import Loader from 'components/Loader';
+
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
 
 const initialValue = {
   phone: '',
@@ -36,7 +41,7 @@ export function ContactForm() {
   const [{ name, phone }, dispatchReducer] = useReducer(reducer, initialValue);
 
   const { data: contacts } = useFetchContactsQuery();
-  const [addContact] = useAddContactMutation();
+  const [addContact, { isLoading: isDeleting }] = useAddContactMutation();
 
   useEffect(() => {
     login.submit();
@@ -61,34 +66,52 @@ export function ContactForm() {
     dispatchReducer({ type: name, payload: value });
   };
   return (
-    <form className={s.form} onSubmit={handleFormSubmit}>
-      <label className={s.label}>
-        Name
-        <input
-          type="text"
-          name="name"
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          value={name}
-          onChange={handleInputChange}
-          required
-        />
-      </label>
-      <label className={s.label}>
-        phone
-        <input
-          type="tel"
-          name="phone"
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone phone must be digits and can contain spaces, dashes, parentheses and can start with +"
-          value={phone}
-          onChange={handleInputChange}
-          required
-        />
-      </label>
-      <button className={s.btn} type="submit">
-        Add contact
-      </button>
-    </form>
+    <Form onSubmit={handleFormSubmit}>
+      <Row className="align-items-center">
+        <Col xs="auto">
+          <Form.Label htmlFor="name" className="text">
+            Name
+          </Form.Label>
+          <Form.Control
+            className="mb-2"
+            id="name"
+            placeholder="Alex"
+            type="text"
+            name="name"
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+            value={name}
+            onChange={handleInputChange}
+            required
+          />
+        </Col>
+        <Col xs="auto">
+          <Form.Label htmlFor="phone" className="text">
+            Phone
+          </Form.Label>
+          <Form.Control
+            className="mb-2"
+            id="phone"
+            placeholder="410-371-6599"
+            type="tel"
+            name="phone"
+            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            title="Phone phone must be digits and can contain spaces, dashes, parentheses and can start with +"
+            value={phone}
+            onChange={handleInputChange}
+            required
+          />
+        </Col>
+      </Row>
+      <div className="d-grid gap-2">
+        <Button variant="primary" type="submit" disabled={isDeleting}>
+          {isDeleting ? (
+            <Loader width="45" height="10" color="#fff" />
+          ) : (
+            <span> Add Contact</span>
+          )}
+        </Button>
+      </div>
+    </Form>
   );
 }

@@ -1,6 +1,6 @@
 import { Section } from '../Section';
 import { ContactForm } from '../ContactForm';
-import { Filter } from '../Filter';
+import Filter from '../Filter';
 import { ContactList } from '../ContactList';
 import { ConfettiContainer } from '../Confetti/Confetti';
 
@@ -14,12 +14,10 @@ export function TaskPhonebook() {
         <ContactForm />
       </Section>
 
-      <Section title="Contacts">
-        <Filter />
+      <Filter />
 
-        <ContactList />
-        <ConfettiContainer />
-      </Section>
+      <ContactList />
+      <ConfettiContainer />
     </div>
   );
 }

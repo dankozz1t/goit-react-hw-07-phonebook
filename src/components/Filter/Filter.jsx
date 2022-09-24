@@ -1,44 +1,14 @@
-// import React, { useState } from 'react';
-
-// import { useFetchContactsQuery } from '../../redux/contactsSlice';
-
-// export function Filter() {
-//   const [name, setName] = useState('');
-
-//   const { data: contacts, isFetchingAll } = useFetchContactsQuery();
-
-//   const handleFilterChange = e => {
-//     setName(e.target.value);
-
-//     const filteredContacts = contacts.filter(elem => elem.name.includes(name));
-//     console.log(filteredContacts);
-//   };
-
-//   return (
-//     <div>
-//       <form action="">
-//         <label>
-//           Find contacts by name
-//           <input
-//             onChange={handleFilterChange}
-//             value={name}
-//             type="text"
-//             name="filter"
-//             title="Find contacts by name"
-//           />
-//         </label>
-//       </form>
-//     </div>
-//   );
-// }
-
 import React from 'react';
 
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { setFilter } from '../../redux/filterSlice';
 import { getFilter } from '../../redux/selectors';
 
-export function Filter() {
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+
+const Filter = () => {
   const filter = useSelector(getFilter, shallowEqual);
   const dispatch = useDispatch();
 
@@ -47,17 +17,24 @@ export function Filter() {
   };
 
   return (
-    <div>
-      <label>
-        Find contacts by name
-        <input
-          onChange={handleFilterChange}
-          value={filter}
-          type="text"
-          name="filter"
-          title="Find contacts by name"
-        />
-      </label>
-    </div>
+    <Form style={{ marginTop: '20px' }}>
+      <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
+        <Form.Label column sm={6} className="text">
+          Find contacts by name
+        </Form.Label>
+        <Col sm={6}>
+          <Form.Control
+            type="text"
+            placeholder="Alex"
+            onChange={handleFilterChange}
+            value={filter}
+            name="filter"
+            title="Find contacts by name"
+          />
+        </Col>
+      </Form.Group>
+    </Form>
   );
-}
+};
+
+export default Filter;

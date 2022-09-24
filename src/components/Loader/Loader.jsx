@@ -1,6 +1,6 @@
 import { ThreeDots } from 'react-loader-spinner';
 
-const Loader = () => {
+const Loader = props => {
   return (
     <ThreeDots
       height="100"
@@ -8,9 +8,10 @@ const Loader = () => {
       radius="9"
       color="#3f51b5"
       ariaLabel="three-dots-loading"
-      wrapperStyle={{ margin: 'auto' }}
+      wrapperStyle={{ margin: 'auto', display: 'inline' }}
       wrapperClassName=""
       visible={true}
+      {...props}
     />
   );
 };
