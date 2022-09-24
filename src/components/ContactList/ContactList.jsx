@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import { useFetchContactsQuery } from 'redux/contactsSlice';
 
-import { ContactItem } from '../ContactItem/ContactItem';
+import ContactItem from '../ContactItem/';
 
 import { useSelector, shallowEqual } from 'react-redux';
 
@@ -11,22 +11,30 @@ import Loader from 'components/Loader';
 
 import ListGroup from 'react-bootstrap/ListGroup';
 
-export function ContactList() {
+const ContactList = () => {
   const filter = useSelector(getFilter, shallowEqual);
-  const { data: contacts, isFetching } = useFetchContactsQuery();
+  const { data: contacts, isLoading } = useFetchContactsQuery();
 
   const filteredContacts = useMemo(() => {
-    if (isFetching) {
+    if (isLoading) {
       return;
     }
 
     return contacts.filter(({ name }) =>
       name.toLowerCase().includes(filter.toLowerCase().trim())
     );
-  }, [filter, contacts, isFetching]);
+  }, [filter, contacts, isLoading]);
 
-  if (isFetching) {
+  if (isLoading) {
     return <Loader />;
+  }
+
+  if (filteredContacts.length === 0) {
+    return (
+      <h2 className="text" style={{ fontSize: '40px' }}>
+        Contact not found
+      </h2>
+    );
   }
 
   const elements = filteredContacts.map(({ id, name, phone }) => (
@@ -45,4 +53,6 @@ export function ContactList() {
       {elements}
     </ListGroup>
   );
-}
+};
+
+export default ContactList;

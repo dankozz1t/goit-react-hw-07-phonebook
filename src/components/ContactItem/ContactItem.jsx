@@ -10,7 +10,7 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-export function ContactItem({ id, name, phone }) {
+const ContactItem = ({ id, name, phone }) => {
   const [deleteContact, { isLoading: isDeleting }] = useDeleteContactMutation();
 
   return (
@@ -43,10 +43,12 @@ export function ContactItem({ id, name, phone }) {
       </Row>
     </ListGroup.Item>
   );
-}
+};
 
 ContactItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   phone: PropTypes.string.isRequired,
 };
+
+export default ContactItem;
