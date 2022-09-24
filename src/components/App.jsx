@@ -1,5 +1,5 @@
-import { Container } from './Container';
-import { TaskPhonebook } from './TaskPhonebook';
+import Container from './Container';
+import TaskPhonebook from './TaskPhonebook';
 
 export const App = () => {
   return (

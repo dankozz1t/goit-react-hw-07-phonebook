@@ -15,30 +15,18 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import inputReducer from './inputReducer';
 
 const initialValue = {
   phone: '',
   name: '',
 };
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'name':
-      return { ...state, name: action.payload };
-
-    case 'phone':
-      return { ...state, phone: action.payload };
-
-    case 'reset':
-      return { ...action.payload };
-
-    default:
-      return state;
-  }
-};
-
-export function ContactForm() {
-  const [{ name, phone }, dispatchReducer] = useReducer(reducer, initialValue);
+const ContactForm = () => {
+  const [{ name, phone }, dispatchReducer] = useReducer(
+    inputReducer,
+    initialValue
+  );
 
   const { data: contacts } = useFetchContactsQuery();
   const [addContact, { isLoading: isDeleting }] = useAddContactMutation();
@@ -114,4 +102,6 @@ export function ContactForm() {
       </div>
     </Form>
   );
-}
+};
+
+export default ContactForm;

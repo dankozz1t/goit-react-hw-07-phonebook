@@ -2,9 +2,9 @@ import React from 'react';
 import s from './Container.module.css';
 import PropTypes from 'prop-types';
 
-export function Container({ children }) {
+const Container = ({ children }) => {
   return <div className={s.container}>{children}</div>;
-}
+};
 
 Container.propTypes = {
   children: PropTypes.oneOfType([
@@ -12,3 +12,5 @@ Container.propTypes = {
     PropTypes.node,
   ]).isRequired,
 };
+
+export default Container;

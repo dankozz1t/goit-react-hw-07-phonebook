@@ -1,13 +1,13 @@
-import { Section } from '../Section';
-import { ContactForm } from '../ContactForm';
+import Section from '../Section';
+import ContactForm from '../ContactForm';
 import Filter from '../Filter';
-import { ContactList } from '../ContactList';
+import ContactList from '../ContactList';
 import { ConfettiContainer } from '../Confetti/Confetti';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import s from './TaskPhonebook.module.css';
 
-export function TaskPhonebook() {
+const TaskPhonebook = () => {
   return (
     <div className={s.box}>
       <Section title="Phonebook">
@@ -20,4 +20,6 @@ export function TaskPhonebook() {
       <ConfettiContainer />
     </div>
   );
-}
+};
+
+export default TaskPhonebook;

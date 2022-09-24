@@ -1,9 +1,11 @@
-// import { createSelector } from '@reduxjs/toolkit';
-
 export const getFilter = state => state.filter.filter;
 
+// TODO: How make selector with async API code (Filtered Contacts or contacts (contactsSlice))
+
+// import { createSelector } from '@reduxjs/toolkit';
+
 // export const getContacts = state =>
-//   state.contactsAPI.queries['fetchContacts(undefined)'].data;
+//   state.contactsAPI.queries['fetchContacts(undefined)'].data; // wtf??))
 
 // const getFilteredContacts2 = createSelector(
 //   [getContacts, getFilter],
