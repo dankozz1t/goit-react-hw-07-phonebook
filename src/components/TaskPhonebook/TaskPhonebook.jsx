@@ -4,6 +4,7 @@ import { Filter } from '../Filter';
 import { ContactList } from '../ContactList';
 import { ConfettiContainer } from '../Confetti/Confetti';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import s from './TaskPhonebook.module.css';
 
 export function TaskPhonebook() {
