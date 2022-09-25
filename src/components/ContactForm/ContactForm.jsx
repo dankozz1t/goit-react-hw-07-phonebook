@@ -5,7 +5,7 @@ import {
   useFetchContactsQuery,
 } from '../../redux/contactsAPI';
 
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { toast } from 'react-toastify';
 
 import { login } from '../Confetti/utils';
 
@@ -29,30 +29,41 @@ const ContactForm = () => {
   );
 
   const { data: contacts } = useFetchContactsQuery();
-  const [addContact, { isLoading: isDeleting }] = useAddContactMutation();
+  const [addContact, { isLoading: isDeleting, isError }] =
+    useAddContactMutation();
 
   useEffect(() => {
     login.submit();
   }, [contacts]);
+
   const handleFormSubmit = e => {
     e.preventDefault();
     if (isUniqueName(name)) {
       addContact({ name, phone });
+      toast.info(`"${name}" added to your contacts`);
     }
     dispatchReducer({ type: 'reset', payload: initialValue });
   };
+
   const isUniqueName = newName => {
     const searchUnique = newName.toLowerCase();
     if (contacts.find(({ name }) => name.toLowerCase() === searchUnique)) {
-      Notify.failure(`"${newName}" is already in contacts`);
+      toast.info(`"${newName}" is already in contacts`);
       return false;
     }
     return true;
   };
+
   const handleInputChange = e => {
     const { name, value } = e.currentTarget;
     dispatchReducer({ type: name, payload: value });
   };
+
+  if (isError) {
+    toast.info(`ERROR`);
+    return;
+  }
+
   return (
     <Form onSubmit={handleFormSubmit}>
       <Row className="align-items-center">
@@ -96,7 +107,7 @@ const ContactForm = () => {
           {isDeleting ? (
             <Loader width="45" height="10" color="#fff" />
           ) : (
-            <span> Add Contact</span>
+            <span>Add Contact</span>
           )}
         </Button>
       </div>

@@ -10,10 +10,11 @@ import { getFilter } from '../../redux/selectors';
 import Loader from 'components/Loader';
 
 import ListGroup from 'react-bootstrap/ListGroup';
+import { toast } from 'react-toastify';
 
 const ContactList = () => {
   const filter = useSelector(getFilter, shallowEqual);
-  const { data: contacts, isLoading } = useFetchContactsQuery();
+  const { data: contacts, isLoading, isError } = useFetchContactsQuery();
 
   const filteredContacts = useMemo(() => {
     if (isLoading) {
@@ -27,6 +28,15 @@ const ContactList = () => {
 
   if (isLoading) {
     return <Loader />;
+  }
+
+  if (isError) {
+    toast.info(`Error`);
+    return (
+      <h2 className="text" style={{ fontSize: '40px' }}>
+        ERROR
+      </h2>
+    );
   }
 
   if (filteredContacts.length === 0) {

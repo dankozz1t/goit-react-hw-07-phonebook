@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { useDeleteContactMutation } from '../../redux/contactsAPI';
 
+import { toast } from 'react-toastify';
 import Loader from 'components/Loader';
 
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -11,7 +12,23 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 const ContactItem = ({ id, name, phone }) => {
-  const [deleteContact, { isLoading: isDeleting }] = useDeleteContactMutation();
+  const [deleteContact, { isLoading: isDeleting, isError }] =
+    useDeleteContactMutation();
+
+  const handleDeleteClick = () => {
+    deleteContact(id);
+
+    toast.info(`"${name}" removed from your contacts`);
+  };
+
+  if (isError) {
+    toast.info(`Error`);
+    return (
+      <h2 className="text" style={{ fontSize: '40px' }}>
+        ERROR
+      </h2>
+    );
+  }
 
   return (
     <ListGroup.Item
@@ -29,7 +46,7 @@ const ContactItem = ({ id, name, phone }) => {
         <Col>
           <Button
             type="button"
-            onClick={() => deleteContact(id)}
+            onClick={handleDeleteClick}
             disabled={isDeleting}
             variant="primary"
           >
