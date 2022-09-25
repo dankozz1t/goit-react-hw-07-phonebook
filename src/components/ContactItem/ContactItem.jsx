@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { useDeleteContactMutation } from '../../redux/contactsSlice';
+import { useDeleteContactMutation } from '../../redux/contactsAPI';
 
 import Loader from 'components/Loader';
 

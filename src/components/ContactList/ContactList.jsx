@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { useFetchContactsQuery } from 'redux/contactsSlice';
+import { useFetchContactsQuery } from 'redux/contactsAPI';
 
 import ContactItem from '../ContactItem/';
 

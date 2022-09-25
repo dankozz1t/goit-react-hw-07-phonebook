@@ -3,7 +3,7 @@ import React, { useEffect, useReducer } from 'react';
 import {
   useAddContactMutation,
   useFetchContactsQuery,
-} from '../../redux/contactsSlice';
+} from '../../redux/contactsAPI';
 
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
